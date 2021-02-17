@@ -1,4 +1,5 @@
-name: SidebarAPI
-version: @version@
 main: com.coloredcarrot.api.sidebar.SidebarAPI
-api-version: 1.13
+version: 3.0
+authors: [ColoredCarrot, fren_gor]
+name: SidebarAPI
+softdepend: [PlaceholderAPI]
