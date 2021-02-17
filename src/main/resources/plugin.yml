@@ -1,0 +1,4 @@
+name: SidebarAPI
+version: @version@
+main: com.coloredcarrot.api.sidebar.SidebarAPI
+api-version: 1.13

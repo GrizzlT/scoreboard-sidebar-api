@@ -22,39 +22,36 @@
  * SOFTWARE.
  */
 
-package com.coloredcarrot.api.sidebar.test;
+package com.coloredcarrot.api.sidebar;
 
-import com.coloredcarrot.api.sidebar.Sidebar;
-import com.coloredcarrot.api.sidebar.SidebarString;
-import org.bukkit.ChatColor;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 
-public class SidebarAPITest extends JavaPlugin implements Listener
+import java.io.File;
+
+public class Config
 {
 
-    Sidebar s;
+    private static FileConfiguration yaml;
+    private static File              file;
 
-    @Override
-    public void onEnable()
+    public static void load()
     {
 
-        s = new Sidebar("My Sidebar", this, 4);
-        s.addEntry(
-                SidebarString.generateScrollingAnimation("Hello, world!", 5),
-                new SidebarString(ChatColor.RED + "Line 2 Variation 1", ChatColor.BLUE + "Line 2 Variation 2", ChatColor.GREEN + "Line 2 Variation 3")
-        );
+        SidebarAPI.getInstance().getDataFolder().mkdirs();
 
-        getServer().getPluginManager().registerEvents(this, this);
+        file = new File(SidebarAPI.getInstance().getDataFolder(), "config.yml");
+
+        if (!file.exists())
+            SidebarAPI.getInstance().saveResource("config.yml", true);
+
+        yaml = YamlConfiguration.loadConfiguration(file);
 
     }
 
-    @EventHandler
-    public void onPlayerJoin(PlayerJoinEvent evt)
+    public static boolean getBoolean_updater_autoDownload()
     {
-        s.showTo(evt.getPlayer());
+        return yaml.getBoolean("updater.auto-download");
     }
 
 }

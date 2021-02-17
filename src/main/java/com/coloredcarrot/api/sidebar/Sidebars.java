@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2018 ColoredCarrot
+ * Copyright (c) 2018 fren_gor
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,34 +24,16 @@
 
 package com.coloredcarrot.api.sidebar;
 
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
+import java.util.List;
 
-import java.io.File;
-
-public class Config
+/**
+ * Interface that represent a sidebar
+ * @author fren_gor
+ *
+ */
+public interface Sidebars
 {
-    
-    private static FileConfiguration yaml;
-    private static File              file;
-    
-    public static void load()
-    {
-        
-        SidebarAPI.getInstance().getDataFolder().mkdirs();
-        
-        file = new File(SidebarAPI.getInstance().getDataFolder(), "config.yml");
-        
-        if (!file.exists())
-            SidebarAPI.getInstance().saveResource("config.yml", true);
-        
-        yaml = YamlConfiguration.loadConfiguration(file);
-        
-    }
-    
-    public static boolean getBoolean_updater_autoDownload()
-    {
-        return yaml.getBoolean("updater.auto-download");
-    }
-    
+    String getTitle();
+
+    List<SidebarString> getEntries();
 }
